@@ -1,9 +1,3 @@
-//
-//  AlertViewController.swift
-//  restaurant
-//
-//  Created by Olga Danylova on /22/318.
-//
 
 import UIKit
 
@@ -11,24 +5,36 @@ class AlertViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    class func showErrorAlert(_ fault: Fault, _ target: UIViewController, _ actionHandler:((UIAlertAction) -> Void)?) {
+        var errorTitle = "Error"
+        if (fault.faultCode != nil) {
+            errorTitle = String(format:"Error %@", fault.faultCode)
+        }
+        let alert = UIAlertController.init(title: errorTitle, message: fault.message, preferredStyle: .alert)
+        alert.view.tintColor = ColorHelper.shared.getColorFromHex("#FF9300", 1)
+        let dismissAction = UIAlertAction.init(title: "Dismiss", style: .cancel, handler: actionHandler)
+        alert.addAction(dismissAction)
+        target.present(alert, animated: true, completion: nil)
     }
-    */
-
+    
+    class func showAlertWithTitle(_ title: String, _ message: String, _ target: UIViewController, _ actionHandler: ((UIAlertAction) -> Void)?) {
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        alert.view.tintColor = ColorHelper.shared.getColorFromHex("#FF9300", 1)
+        let chatsAction = UIAlertAction.init(title: "OK", style: .default, handler: actionHandler)
+        alert.addAction(chatsAction)
+        target.present(alert, animated: true, completion: nil)
+    }
+    
+    class func showAddedToCartAlert(_ title: String, _ message: String, _ target: UIViewController, _ actionHandler1: ((UIAlertAction) -> Void)?, _ actionHandler2: ((UIAlertAction) -> Void)?) {
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        alert.view.tintColor = ColorHelper.shared.getColorFromHex("#FF9300", 1)
+        let contitueShopping = UIAlertAction.init(title: "Back", style: .default, handler: actionHandler1)
+        let goToCart = UIAlertAction.init(title: "Back", style: .default, handler: actionHandler2)
+        alert.addAction(contitueShopping)
+        alert.addAction(goToCart)
+        target.present(alert, animated: true, completion: nil)
+    }
 }
+

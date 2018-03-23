@@ -1,34 +1,20 @@
-//
-//  SplitViewController.swift
-//  restaurant
-//
-//  Created by Olga Danylova on /22/318.
-//
 
 import UIKit
 
-class SplitViewController: UISplitViewController {
-
+class SplitViewController: UISplitViewController, UISplitViewControllerDelegate {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.delegate = self
+        DispatchQueue.main.async(execute: {() -> Void in self.preferredDisplayMode = .allVisible })
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        if (secondaryViewController is UINavigationController) && (((secondaryViewController as? UINavigationController)?.topViewController) is ItemsViewController) {
+            return true
+        }
+        else {
+            return false
+        }
     }
-    */
-
 }

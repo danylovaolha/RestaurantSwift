@@ -12,7 +12,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -35,7 +35,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 </variation>
                                 <connections>
-                                    <action selector="pressedEnterTheApp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XYN-IT-DGY"/>
+                                    <action selector="pressedEnterTheApp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="p3k-7E-AZ5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -104,7 +104,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="enterTheAppButton" destination="6PH-0T-v4G" id="7rD-tM-qqZ"/>
+                        <outlet property="enterTheAppButton" destination="6PH-0T-v4G" id="rqj-pq-zb6"/>
                         <segue destination="xvb-lQ-RgL" kind="show" identifier="ShowRestaurant" id="1zD-NX-jLZ"/>
                     </connections>
                 </viewController>
@@ -115,7 +115,7 @@
         <!--Home-->
         <scene sceneID="lRc-m4-3rW">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="Nyo-1G-jbP" customClass="HomeViewController" sceneMemberID="viewController">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="Nyo-1G-jbP" customClass="HomeViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oTk-ql-O6O">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -160,7 +160,7 @@
         <!--Items View Controller-->
         <scene sceneID="zAX-jN-bNS">
             <objects>
-                <tableViewController storyboardIdentifier="ItemsViewController" id="jnP-OW-HKA" customClass="ItemsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ItemsViewController" id="jnP-OW-HKA" customClass="ItemsViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8aU-RT-MQa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -852,7 +852,7 @@
         <!--Split View Controller-->
         <scene sceneID="XQ4-gv-5bh">
             <objects>
-                <splitViewController id="xvb-lQ-RgL" customClass="SplitViewController" sceneMemberID="viewController">
+                <splitViewController id="xvb-lQ-RgL" customClass="SplitViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="pKo-zK-2Gp" kind="relationship" relationship="masterViewController" id="bzH-BY-yjQ"/>
                         <segue destination="N2G-1S-TKH" kind="relationship" relationship="detailViewController" id="LfC-ES-h1A"/>
@@ -893,7 +893,7 @@
         <!--About us-->
         <scene sceneID="5Wy-sY-RdE">
             <objects>
-                <tableViewController storyboardIdentifier="RestaurantDetailsViewController" id="ist-iX-1uC" customClass="AboutUsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RestaurantDetailsViewController" id="ist-iX-1uC" customClass="AboutUsViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KDH-u0-Dq3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1071,8 +1071,8 @@
         <image name="welcome" width="1280" height="1280"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eDe-TD-yJC"/>
-        <segue reference="4Qb-oy-1uw"/>
+        <segue reference="Ftq-xY-hLx"/>
+        <segue reference="LfC-ES-h1A"/>
         <segue reference="G4J-6V-HZN"/>
     </inferredMetricsTieBreakers>
 </document>
