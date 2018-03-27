@@ -1,34 +1,30 @@
-//
-//  MapViewController.swift
-//  restaurant
-//
-//  Created by Olga Danylova on /22/318.
-//
 
 import UIKit
+import MapKit
 
 class MapViewController: UIViewController {
-
+    
+    @IBOutlet weak var mapView: MKMapView!
+    var business: Business?
+    private var regionRadius: CLLocationDistance?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        mapView.showsScale = true
+        mapView.showsCompass = true
+        regionRadius = 250
+        
+        let officeLocation = business?.officeLocation
+        let initialLocation = CLLocation.init(latitude: (officeLocation?.latitude.doubleValue)!, longitude: (officeLocation?.longitude.doubleValue)!)
+        centerMapOnLocation(initialLocation)
+        let restaurantCoordinates = CLLocationCoordinate2DMake((officeLocation?.latitude.doubleValue)!, (officeLocation?.longitude.doubleValue)!)
+        let mapPin = MapPin(coordinate: restaurantCoordinates, title: (business?.storeName)!, subtitle: (business?.address)!)
+        mapView.addAnnotation(mapPin)
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func centerMapOnLocation(_ location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius!, regionRadius!)
+        mapView.setRegion(coordinateRegion, animated: true)
     }
-    */
-
 }

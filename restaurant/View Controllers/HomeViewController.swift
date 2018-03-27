@@ -40,8 +40,10 @@ class HomeViewController: UITableViewController {
             return (favoritesAndCart?.count)!
         }
         else if (section == 1) {
-            let categoriesCount = backendless.data.of(Category.ofClass()).getObjectCount()
-            return (categoriesCount?.intValue)!
+            if (categories != nil) {
+                return (categories?.count)!
+            }
+            return 0
         }
         else if (section == 2) {
             news = [ARTICLES]
@@ -146,7 +148,7 @@ class HomeViewController: UITableViewController {
                     let navController = segue.destination as! UINavigationController
                     let aboutUsVC = navController.topViewController as! AboutUsViewController
                     aboutUsVC.business = business as? Business
-                    aboutUsVC.openHours = self.convertOpenHoursArrayToDictionary(openHours as! [OpenHoursInfo])
+                    aboutUsVC.openHours = self.sortedOpenHours(openHours as! [OpenHoursInfo])
                     aboutUsVC.tableView.reloadData()
                 }, error: { fault in
                     AlertViewController.showErrorAlert(fault!, self, nil)
@@ -157,34 +159,41 @@ class HomeViewController: UITableViewController {
         }
     }
     
-    func convertOpenHoursArrayToDictionary(_ openHoursArray: [OpenHoursInfo]) -> [String : Any] {
-        var openHoursDictionary = [String : Any]()
-        for openHoursInfo in openHoursArray {
+    func sortedOpenHours(_ openHours: [OpenHoursInfo]) -> [String] {
+        let sortedOpenHours = openHours.sorted { (($0.day?.intValue)!, ($0.openAt)!) < (($1.day?.intValue)!, ($1.openAt)!) }
+        var openHoursStrings = [String]()
+        for index in 0...6 {
+            openHoursStrings.insert("", at: index)
+        }
+        for openHoursInfo in sortedOpenHours {
             let day = openHoursInfo.day
             let openAt = openHoursInfo.openAt
             let closeAt = openHoursInfo.closeAt
-            if (openHoursDictionary[stringFromWeekDay((day?.intValue)!)] == nil) {
-                let openClose = String.init(format: "%@ - %@", stringFromDate(openAt!), stringFromDate(closeAt!))
-                openHoursDictionary[stringFromWeekDay((day?.intValue)!)] = openClose
+            let index = (day?.intValue)! - 1
+            
+            if ((openHoursStrings[index].isEmpty)) {
+                let hours = String(format: "%@ - %@", stringFromDate(openAt!), stringFromDate(closeAt!))
+                openHoursStrings[index] = hours
+                
             }
             else {
-                var openClose = openHoursDictionary[stringFromWeekDay((day?.intValue)!)] as! String
-                openClose.append(String.init(format: " / %@ - %@", stringFromDate(openAt!), stringFromDate(closeAt!)))
+                var hours = openHoursStrings[index]
+                hours.append(String(format: " / %@ - %@", stringFromDate(openAt!), stringFromDate(closeAt!)))
+                openHoursStrings[index] = hours
             }
         }
-        return openHoursDictionary
+        for index in 0...6 {
+            if (openHoursStrings[index].isEmpty) {
+                openHoursStrings[index] = "Closed"
+            }
+        }
+        return openHoursStrings
     }
     
     func stringFromDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         return dateFormatter.string(from: date)
-    }
-    
-    func stringFromWeekDay(_ weekday: Int) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale.init(identifier: "en_US")
-        return dateFormatter.shortWeekdaySymbols[weekday]
     }
     
     @IBAction func unwindToHomeVC(segue:UIStoryboardSegue) {

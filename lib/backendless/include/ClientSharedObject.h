@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "IClientSharedObjectDelegate.h"
-#import "WeborbSharedObject.h"
+#import "SharedObject.h"
 #import "IClientSharedObject.h"
 #import "IEventDispatcher.h"
 #import "ISharedObjectListener.h"
 
 
-@interface ClientSharedObject : WeborbSharedObject <IClientSharedObject, IEventDispatcher> {
+@interface ClientSharedObject : SharedObject <IClientSharedObject, IEventDispatcher> {
 	// delegate
 	id <IClientSharedObjectDelegate>	delegate;
     // owner

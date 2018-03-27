@@ -146,10 +146,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Home" id="Upl-PL-9hl"/>
                     <connections>
-                        <segue destination="mDi-MA-tvD" kind="unwind" identifier="unwindToLoginVC" unwindAction="unwindToLoginVC:" id="fUy-tt-NMq"/>
                         <segue destination="N2G-1S-TKH" kind="showDetail" identifier="ShowItems" id="4Qb-oy-1uw"/>
                         <segue destination="WIM-fa-H0K" kind="showDetail" identifier="ShowCart" id="1vO-He-cyz"/>
                         <segue destination="Q0x-Br-g1u" kind="showDetail" identifier="ShowAbout" id="pcf-Kh-dtf"/>
+                        <segue destination="mDi-MA-tvD" kind="unwind" identifier="unwindToLoginVC" unwindAction="unwindToLoginVCWithSegue:" id="m4a-kc-gRN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5u-sb-fPL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -894,7 +894,7 @@
         <scene sceneID="5Wy-sY-RdE">
             <objects>
                 <tableViewController storyboardIdentifier="RestaurantDetailsViewController" id="ist-iX-1uC" customClass="AboutUsViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KDH-u0-Dq3">
+                    <tableView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KDH-u0-Dq3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -907,7 +907,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestaurantInfoCell" rowHeight="135" id="osY-MT-e11" customClass="RestaurantInfoCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestaurantInfoCell" rowHeight="135" id="osY-MT-e11" customClass="RestaurantInfoCell" customModule="restaurant" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="135"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="osY-MT-e11" id="t0M-5Q-2ai">
@@ -933,7 +933,7 @@
                                                 <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
-                                                <segue destination="GrE-9Y-9Uu" kind="show" identifier="ShowMap" id="Ftq-xY-hLx"/>
+                                                <segue destination="GrE-9Y-9Uu" kind="show" identifier="ShowMap" id="c6o-eF-QRH"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -951,8 +951,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="addressLabel" destination="asy-P8-ezC" id="Rua-pt-3aL"/>
-                                    <outlet property="storeNameLabel" destination="VP7-qd-Q6O" id="5gn-aR-V5r"/>
+                                    <outlet property="addressLabel" destination="asy-P8-ezC" id="zMS-ZZ-nX1"/>
+                                    <outlet property="storeNameLabel" destination="VP7-qd-Q6O" id="zbU-Yc-IKL"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OpenHoursCell" textLabel="Cje-p2-oTl" detailTextLabel="kre-2h-rF3" style="IBUITableViewCellStyleSubtitle" id="9Ah-Vk-7OU">
@@ -1033,7 +1033,7 @@
         <!--Map View Controller-->
         <scene sceneID="DSc-F1-v2A">
             <objects>
-                <viewController id="GrE-9Y-9Uu" customClass="MapViewController" sceneMemberID="viewController">
+                <viewController id="GrE-9Y-9Uu" customClass="MapViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hRm-Am-Fb9"/>
                         <viewControllerLayoutGuide type="bottom" id="yef-j7-Jie"/>
@@ -1058,7 +1058,7 @@
                     <navigationItem key="navigationItem" id="98f-PM-7Vm"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="mapView" destination="Igv-rv-Cit" id="4hC-cT-CUq"/>
+                        <outlet property="mapView" destination="Igv-rv-Cit" id="XCs-3r-ypZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fAO-bq-dO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1071,8 +1071,8 @@
         <image name="welcome" width="1280" height="1280"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ftq-xY-hLx"/>
-        <segue reference="LfC-ES-h1A"/>
+        <segue reference="c6o-eF-QRH"/>
+        <segue reference="4Qb-oy-1uw"/>
         <segue reference="G4J-6V-HZN"/>
     </inferredMetricsTieBreakers>
 </document>

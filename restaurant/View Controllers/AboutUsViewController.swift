@@ -4,7 +4,7 @@ import UIKit
 class AboutUsViewController: UITableViewController {
     
     var business: Business?
-    var openHours: [String : Any]?
+    var openHours: [String]?
     
     private var contacts: [String]?
     private var socialNetworks: [String]?
@@ -18,6 +18,7 @@ class AboutUsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.isUserInteractionEnabled = true
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -29,7 +30,10 @@ class AboutUsViewController: UITableViewController {
             return 1
         }
         else if (section == 2) {
-            return (openHours?.count)!
+            if (openHours != nil) {
+                return (openHours?.count)!
+            }
+            return 0
         }
         else if (section == 3) {
             contacts = [CALL_US, SEND_EMAIL];
@@ -80,122 +84,80 @@ class AboutUsViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantImageCell", for: indexPath)
             cell.isUserInteractionEnabled = false
             cell.selectionStyle = .none
-            cell.backgroundView = UIImageView.init(image: UIImage.init(named: "waitingImage.png"))
+            cell.backgroundView = UIImageView.init(image: UIImage.init(named: "aboutUs.png"))
             cell.backgroundView?.contentMode = .scaleAspectFill
-            let randomIndex = Int(arc4random_uniform(UInt32((business?.welcomeImages?.count)!)))
-            let picture = self.business?.welcomeImages![randomIndex] as! Picture
-            if (UserDefaultsHelper.shared.getImageFromUserDefaults(picture.url!) != nil) {
-                cell.backgroundView = UIImageView.init(image: UserDefaultsHelper.shared.getImageFromUserDefaults(picture.url!))
-                cell.backgroundView?.contentMode = .scaleAspectFill
+            return cell
+        }
+        else if (indexPath.section == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantInfoCell", for: indexPath) as! RestaurantInfoCell
+            cell.selectionStyle = .none
+            if (self.business != nil) {
+                cell.storeNameLabel.text = self.business?.storeName
+                cell.addressLabel.text = self.business?.address
             }
-                
-                // *********************************
-            else {
-                DispatchQueue.global(qos: .default).async(execute: {() -> Void in
-                    
-                    
-                    
-                    DispatchQueue.main.async(execute: {() -> Void in
-                        
-                    })
-                })
+            return cell
+        }
+        else if (indexPath.section == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OpenHoursCell", for: indexPath)
+            cell.isUserInteractionEnabled = false
+            cell.selectionStyle = .none
+            if (openHours != nil) {
+                cell.textLabel?.text = openHours?[indexPath.row]
+                cell.detailTextLabel?.text = stringFromWeekDay(indexPath.row)
             }
-            // ***************************************
-            
-            
+            return cell
+        }
+        
+        else if (indexPath.section == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
+            cell.textLabel?.text = contacts?[indexPath.row]
+            return cell
+        }
+        else if (indexPath.section == 4) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SocialCell", for: indexPath)
+            cell.textLabel?.text = socialNetworks?[indexPath.row]
             return cell
         }
         return UITableViewCell()
     }
     
-    /*
-     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picture.url]]];
-     if (image && picture.url) {
-     NSLog(@"%@, %@", image, picture.url);
-     [userDefaultsHelper saveImageToUserDefaults:image withKey:picture.url];
-     }
-     dispatch_async(dispatch_get_main_queue(), ^{
-     cell.backgroundView = [[UIImageView alloc] initWithImage:image];
-     cell.backgroundView.contentMode = UIViewContentModeScaleAspectFill;
-     });
-     });
-     }
-     return cell;
-     }
-     else if (indexPath.section == 1) {
-     RestaurantInfoCell *cell = (RestaurantInfoCell *)[tableView dequeueReusableCellWithIdentifier:@"RestaurantInfoCell"];
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-     cell.storeNameLabel.text = self.business.storeName;
-     cell.addressLabel.text = self.business.address;
-     cell.descLabel.text = self.business.desc;
-     return cell;
-     }
-     else if (indexPath.section == 2) {
-     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"OpenHoursCell"];
-     cell.userInteractionEnabled = NO;
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-     cell.textLabel.text = [[self.openHours allKeys] objectAtIndex:indexPath.row];
-     cell.detailTextLabel.text = [self.openHours objectForKey:[[self.openHours allKeys] objectAtIndex:indexPath.row]];
-     return cell;
-     }
-     else if (indexPath.section == 3) {
-     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
-     cell.textLabel.text = [contacts objectAtIndex:indexPath.row];
-     return cell;
-     }
-     else if (indexPath.section == 4) {
-     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SocialCell"];
-     cell.textLabel.text = [socialNetworks objectAtIndex:indexPath.row];
-     return cell;
-     }
-     return nil;
-     }*/
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.section == 3) {
+            if (indexPath.row == 0) {
+                let phoneString = String(format:"telprompt://%@", (business?.phoneNumber)!)
+                UIApplication.shared.openURL(URL.init(string: phoneString)!)
+            }
+            else if (indexPath.row == 1) {
+                let emailString = String(format:"mailto://%@", (business?.email)!)
+                UIApplication.shared.openURL(URL.init(string: emailString)!)
+            }
+        }
+        else if (indexPath.section == 4) {
+            var url: URL?
+            if (indexPath.row == 0) {
+                url = URL.init(string: (business?.facebookPage)!)
+            }
+            else if (indexPath.row == 1) {
+                url = URL.init(string: (business?.twitterPage)!)
+            }
+            else if (indexPath.row == 2) {
+                url = URL.init(string: (business?.instagramPage)!)
+            }
+            else if (indexPath.row == 3) {
+                url = URL.init(string: (business?.pinterestPage)!)
+            }
+            UIApplication.shared.openURL(url!)
+        }
+    }
     
+    func stringFromWeekDay(_ weekday: Int) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.init(identifier: "en_US")
+        return dateFormatter.weekdaySymbols[weekday]
+    }
     
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let mapVC = segue.destination as! MapViewController
+        mapVC.business = business
+    }
 }
