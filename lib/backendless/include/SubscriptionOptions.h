@@ -1,5 +1,5 @@
 //
-//  CommandObject.h
+//  SubscriptionOptions.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2017 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2012 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -21,11 +21,20 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CommandObject : NSObject
+typedef enum {
+    DELIVERY_POLL,
+    DELIVERY_PUSH
+} DeliveryMethodEnum;
 
-@property (strong, nonatomic) NSString *type;
-@property (strong, nonatomic) NSString *connectionId;
-@property (strong, nonatomic) NSString *userId;
-@property (strong, nonatomic) id data;
+@interface SubscriptionOptions : NSObject
+
+@property (strong, nonatomic) NSString *subscriberId;
+@property (strong, nonatomic) NSString *subtopic;
+@property (strong, nonatomic) NSString *selector;
+@property (strong, nonatomic) NSString *deviceId;
+
++(id)subscriptionOptionsWithDeliveryMethod:(DeliveryMethodEnum)deliveryMethod;
+-(DeliveryMethodEnum)valDeliveryMethod;
+-(void)deliveryMethod:(DeliveryMethodEnum)deliveryMethod;
 
 @end
