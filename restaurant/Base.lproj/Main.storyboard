@@ -166,7 +166,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="88" id="VQh-ed-uaT" customClass="ItemCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="88" id="VQh-ed-uaT" customClass="ItemCell" customModule="restaurant" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VQh-ed-uaT" id="iuc-OK-3Hg">
@@ -207,9 +207,9 @@
                                 </tableViewCellContentView>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <outlet property="descriptionLabel" destination="G21-0K-91L" id="iQt-5C-7dJ"/>
-                                    <outlet property="pictureView" destination="zYW-AZ-EpX" id="MeJ-2S-SAq"/>
-                                    <outlet property="titleLabel" destination="IZC-cW-yso" id="5GS-vx-ocW"/>
+                                    <outlet property="descriptionLabel" destination="G21-0K-91L" id="xLF-81-2Of"/>
+                                    <outlet property="pictureView" destination="zYW-AZ-EpX" id="7da-Fg-TL4"/>
+                                    <outlet property="titleLabel" destination="IZC-cW-yso" id="vdf-fb-bCY"/>
                                     <segue destination="kSD-3D-1ik" kind="show" identifier="ShowItemDetails" id="iat-AR-x4b"/>
                                 </connections>
                             </tableViewCell>
@@ -285,7 +285,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShoppingCartCell" rowHeight="171" id="CzJ-st-1oq" customClass="ShoppingCartCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShoppingCartCell" rowHeight="171" id="CzJ-st-1oq" customClass="ShoppingCartCell" customModule="restaurant" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="171"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CzJ-st-1oq" id="IJ4-yi-VmD">
@@ -347,7 +347,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                             <connections>
-                                                <action selector="pressedDecreaseproperty:" destination="CzJ-st-1oq" eventType="touchUpInside" id="cge-UJ-0uz"/>
+                                                <action selector="pressedDecreaseQuantity:" destination="CzJ-st-1oq" eventType="touchUpInside" id="d9b-9R-kJj"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thR-dG-Nwn">
@@ -368,7 +368,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                             <connections>
-                                                <action selector="pressedIncreaseQuantity:" destination="CzJ-st-1oq" eventType="touchUpInside" id="DxK-YZ-v0s"/>
+                                                <action selector="pressedIncreaseQuantity:" destination="CzJ-st-1oq" eventType="touchUpInside" id="fB1-Ak-cgZ"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -402,13 +402,12 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="descriptionLabel" destination="0UY-j7-XcQ" id="DNa-WF-ex2"/>
-                                    <outlet property="optionsLabel" destination="A1R-Rl-4fQ" id="KKW-V9-2U4"/>
-                                    <outlet property="pictureView" destination="jaS-1q-1dq" id="sdu-MA-Abm"/>
-                                    <outlet property="quantityTextField" destination="nOn-JW-dR7" id="Lmg-qA-O8U"/>
-                                    <outlet property="sizeAndQuantityLabel" destination="jzw-FT-QIh" id="dEB-uy-dEd"/>
-                                    <outlet property="titleLabel" destination="tt3-88-AOb" id="K7Z-iv-3G7"/>
-                                    <outlet property="totalLabel" destination="KPy-fk-g0J" id="dch-P4-bWY"/>
+                                    <outlet property="descriptionLabel" destination="0UY-j7-XcQ" id="9Ob-4g-QnK"/>
+                                    <outlet property="optionsLabel" destination="A1R-Rl-4fQ" id="ArH-5i-i8n"/>
+                                    <outlet property="pictureView" destination="jaS-1q-1dq" id="NKw-Sa-KQh"/>
+                                    <outlet property="quantityTextField" destination="nOn-JW-dR7" id="iHZ-aW-VLh"/>
+                                    <outlet property="sizeAndQuantityLabel" destination="jzw-FT-QIh" id="GLS-Qg-R0e"/>
+                                    <outlet property="totalLabel" destination="KPy-fk-g0J" id="kaR-ek-DJr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -639,7 +638,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemInfoCell" rowHeight="101" id="fWk-Lo-HkO" customClass="ItemInfoCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemInfoCell" rowHeight="101" id="fWk-Lo-HkO" customClass="ItemInfoCell" customModule="restaurant" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55" width="414" height="101"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fWk-Lo-HkO" id="65m-WB-m2t">
@@ -679,49 +678,13 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="bodyLabel" destination="yIC-bZ-7Zn" id="iLu-J6-mMg"/>
-                                    <outlet property="tagsLabel" destination="1li-hN-Lir" id="DFS-dW-Pkr"/>
-                                    <outlet property="titleLabel" destination="qsv-AP-gcX" id="BGo-Nk-4WX"/>
+                                    <outlet property="bodyLabel" destination="yIC-bZ-7Zn" id="kx1-o4-X5u"/>
+                                    <outlet property="tagsLabel" destination="1li-hN-Lir" id="bnC-k2-dge"/>
+                                    <outlet property="titleLabel" destination="qsv-AP-gcX" id="oPf-yd-7Dj"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExtraCell" rowHeight="47" id="S6g-At-Way" customClass="OptionsAndExtrasCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OptionCell" rowHeight="47" id="LTQ-17-Ljp" customClass="OptionsAndExtrasCell" customModule="restaurant" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="156" width="414" height="47"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S6g-At-Way" id="OV0-cs-M6E">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="46.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extra" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caZ-p6-swj" userLabel="Extra Label">
-                                            <rect key="frame" x="16" y="8.0000000000000018" width="317" height="30.666666666666671"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lkd-mN-dln">
-                                            <rect key="frame" x="349" y="8" width="51" height="31"/>
-                                            <color key="onTintColor" red="0.36078431370000003" green="0.72156862749999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <connections>
-                                                <action selector="selectedSwitchAction:" destination="S6g-At-Way" eventType="valueChanged" id="ISW-Oo-Rox"/>
-                                            </connections>
-                                        </switch>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="lkd-mN-dln" secondAttribute="bottom" constant="8" id="24l-ai-mh1"/>
-                                        <constraint firstAttribute="trailing" secondItem="lkd-mN-dln" secondAttribute="trailing" constant="16" id="2P4-Wh-uGG"/>
-                                        <constraint firstItem="lkd-mN-dln" firstAttribute="left" secondItem="caZ-p6-swj" secondAttribute="right" constant="16" id="30V-bF-ybJ"/>
-                                        <constraint firstItem="lkd-mN-dln" firstAttribute="top" secondItem="OV0-cs-M6E" secondAttribute="top" constant="8" id="Tcm-iU-OWq"/>
-                                        <constraint firstItem="caZ-p6-swj" firstAttribute="left" secondItem="OV0-cs-M6E" secondAttribute="left" constant="16" id="aCj-32-APv"/>
-                                        <constraint firstItem="caZ-p6-swj" firstAttribute="top" secondItem="OV0-cs-M6E" secondAttribute="top" constant="8" id="m1o-Ip-fWw"/>
-                                        <constraint firstAttribute="bottom" secondItem="caZ-p6-swj" secondAttribute="bottom" constant="8" id="rzu-iz-rVP"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="optionLabel" destination="caZ-p6-swj" id="tU3-2s-dGU"/>
-                                    <outlet property="selectedSwitch" destination="lkd-mN-dln" id="ALx-zb-vjT"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OptionCell" rowHeight="47" id="LTQ-17-Ljp" customClass="OptionsAndExtrasCell">
-                                <rect key="frame" x="0.0" y="203" width="414" height="47"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LTQ-17-Ljp" id="jz0-FX-a3o">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="46.666666666666664"/>
@@ -737,7 +700,7 @@
                                             <rect key="frame" x="349" y="8" width="51" height="31"/>
                                             <color key="onTintColor" red="0.36078431370000003" green="0.72156862749999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <action selector="selectedSwitchAction:" destination="LTQ-17-Ljp" eventType="valueChanged" id="g7C-Iz-06R"/>
+                                                <action selector="selectedSwitchAction:" destination="LTQ-17-Ljp" eventType="valueChanged" id="1v4-hJ-Yby"/>
                                             </connections>
                                         </switch>
                                     </subviews>
@@ -752,11 +715,44 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="optionLabel" destination="EXZ-A9-0og" id="cYR-gW-gLz"/>
-                                    <outlet property="selectedSwitch" destination="aE6-RW-DhF" id="Hci-aj-N1I"/>
+                                    <outlet property="optionLabel" destination="EXZ-A9-0og" id="p4D-DL-7ye"/>
+                                    <outlet property="selectedSwitch" destination="aE6-RW-DhF" id="iL4-Bs-55U"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SizeAndPriceCell" rowHeight="47" id="rYd-dt-5za" customClass="SizeAndPriceCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExtraCell" rowHeight="47" id="S6g-At-Way" customClass="OptionsAndExtrasCell" customModule="restaurant" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="203" width="414" height="47"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S6g-At-Way" id="OV0-cs-M6E">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="46.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extra" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caZ-p6-swj" userLabel="Extra Label">
+                                            <rect key="frame" x="16" y="8.0000000000000018" width="317" height="30.666666666666671"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lkd-mN-dln">
+                                            <rect key="frame" x="349" y="8" width="51" height="31"/>
+                                            <color key="onTintColor" red="0.36078431370000003" green="0.72156862749999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="lkd-mN-dln" secondAttribute="bottom" constant="8" id="24l-ai-mh1"/>
+                                        <constraint firstAttribute="trailing" secondItem="lkd-mN-dln" secondAttribute="trailing" constant="16" id="2P4-Wh-uGG"/>
+                                        <constraint firstItem="lkd-mN-dln" firstAttribute="left" secondItem="caZ-p6-swj" secondAttribute="right" constant="16" id="30V-bF-ybJ"/>
+                                        <constraint firstItem="lkd-mN-dln" firstAttribute="top" secondItem="OV0-cs-M6E" secondAttribute="top" constant="8" id="Tcm-iU-OWq"/>
+                                        <constraint firstItem="caZ-p6-swj" firstAttribute="left" secondItem="OV0-cs-M6E" secondAttribute="left" constant="16" id="aCj-32-APv"/>
+                                        <constraint firstItem="caZ-p6-swj" firstAttribute="top" secondItem="OV0-cs-M6E" secondAttribute="top" constant="8" id="m1o-Ip-fWw"/>
+                                        <constraint firstAttribute="bottom" secondItem="caZ-p6-swj" secondAttribute="bottom" constant="8" id="rzu-iz-rVP"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="optionLabel" destination="caZ-p6-swj" id="awD-Gs-80w"/>
+                                    <outlet property="selectedSwitch" destination="lkd-mN-dln" id="2dh-8M-jOp"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SizeAndPriceCell" rowHeight="47" id="rYd-dt-5za" customClass="SizeAndPriceCell" customModule="restaurant" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="250" width="414" height="47"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rYd-dt-5za" id="uXe-1o-XF6">
@@ -779,7 +775,7 @@
                                 </tableViewCellContentView>
                                 <color key="tintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <outlet property="sizeAndPriceLabel" destination="EN8-K9-09o" id="iq9-Qi-Ep8"/>
+                                    <outlet property="sizeAndPriceLabel" destination="EN8-K9-09o" id="vy6-oX-TwN"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -792,30 +788,30 @@
                         <barButtonItem title="Add to favorites" id="tmO-W8-sxU">
                             <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="pressedAddToFavorites:" destination="kSD-3D-1ik" id="WeQ-rn-rVv"/>
+                                <action selector="pressedAddToFavorites:" destination="kSD-3D-1ik" id="mCv-0a-VpM"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="7mV-7K-BlL"/>
                         <barButtonItem title="Add to cart" id="4vI-bw-3Ql">
                             <color key="tintColor" red="1" green="0.57647058823529407" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="pressedAddToCart:" destination="kSD-3D-1ik" id="elw-Bq-7JC"/>
+                                <action selector="pressedAddToCart:" destination="kSD-3D-1ik" id="ANI-cK-fcJ"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="UU8-iu-cA3">
                         <barButtonItem key="rightBarButtonItem" title="🛒" id="Qew-AM-C7n">
                             <connections>
-                                <action selector="pressedGoToCart:" destination="kSD-3D-1ik" id="g43-N2-rjo"/>
+                                <action selector="pressedGoToCart:" destination="kSD-3D-1ik" id="ML6-Yu-XcA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="addToCartButton" destination="4vI-bw-3Ql" id="rHQ-wb-O9D"/>
-                        <outlet property="addToFavoritesButton" destination="tmO-W8-sxU" id="Q5r-UK-K2x"/>
+                        <outlet property="addToCartButton" destination="4vI-bw-3Ql" id="Q72-WE-oTH"/>
+                        <outlet property="addToFavoritesButton" destination="tmO-W8-sxU" id="Ree-aU-dcZ"/>
                         <outlet property="cartButton" destination="Qew-AM-C7n" id="MeW-ZQ-SAm"/>
-                        <outlet property="table" destination="iP1-qJ-sfl" id="t0b-rm-BGV"/>
+                        <outlet property="table" destination="iP1-qJ-sfl" id="Hwp-uq-EWG"/>
                         <outlet property="tableView" destination="iP1-qJ-sfl" id="pQu-5o-ub6"/>
                         <segue destination="rsG-91-rxU" kind="show" identifier="ShowCart" id="G4J-6V-HZN"/>
                         <segue destination="ghu-aN-JbL" kind="unwind" identifier="unwindToItemsVC" unwindAction="unwindToItemsVC:" id="KUB-zR-o6f"/>

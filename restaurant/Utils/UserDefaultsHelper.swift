@@ -267,24 +267,27 @@ final class UserDefaultsHelper: NSObject {
     }
     
     func saveImageToUserDefaults(_ image: UIImage, _ key: String) {
-        if var data = UserDefaults.standard.object(forKey: IMAGES_KEY) as? Data {
-            var images = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : UIImage]
-            if (images == nil) {
-                images = [String : UIImage]()
-            }
-            if (images![key] == nil) {
-                images![key] = image;
-            }
-            data = NSKeyedArchiver.archivedData(withRootObject: images as Any)
-            UserDefaults.standard.set(data, forKey: IMAGES_KEY)
-            UserDefaults.standard.synchronize()
+        var images: [String : Any]?
+        if let data = UserDefaults.standard.object(forKey: IMAGES_KEY) as? Data {
+            images = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : UIImage]
         }
+        else {
+            images = [String : UIImage]()
+        }
+        if (images![key] == nil) {
+            images![key] = image;
+        }        
+        let data = NSKeyedArchiver.archivedData(withRootObject: images as Any)
+        UserDefaults.standard.set(data, forKey: IMAGES_KEY)
+        UserDefaults.standard.synchronize()
     }
     
     func getImageFromUserDefaults(_ key: String) -> UIImage? {
         if let data = UserDefaults.standard.object(forKey: IMAGES_KEY) as? Data {
             if let images = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : UIImage] {
-                return images[key]!
+                if (images[key] != nil) {
+                    return images[key]!
+                }
             }
         }
         return nil

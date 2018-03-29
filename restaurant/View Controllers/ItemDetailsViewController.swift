@@ -1,94 +1,59 @@
-//
-//  ItemDetailsViewController.swift
-//  restaurant
-//
-//  Created by Olga Danylova on /22/318.
-//
 
 import UIKit
 
 class ItemDetailsViewController: UITableViewController {
 
+    @IBOutlet var table: UITableView!
+    @IBOutlet weak var cartButton: UIBarButtonItem!
+    @IBOutlet weak var addToFavoritesButton: UIBarButtonItem!
+    @IBOutlet weak var addToCartButton: UIBarButtonItem!
+    
+    var item: Any?
+    
+    private var menuItem: MenuItem?
+    private var menuItemOptions: [StandardOption]?
+    private var menuItemExtras: [ExtraOption]?
+    private var menuItemPrices: [Price]?
+    private var currentPriceIndexPath: NSIndexPath?
+    private var article: Article?
+    
+    private let ADD_TO_FAV = "Add to favorites"
+    private let REMOVE_FROM_FAV = "Remove from favorites"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        table.tableFooterView = UIView()
+        if (item is MenuItem) {
+            menuItem = item as? MenuItem
+            menuItemOptions = menuItem?.standardOptions as? [StandardOption]
+            menuItemExtras = menuItem?.extraOptions as? [ExtraOption]
+            menuItemPrices = menuItem?.prices as? [Price]
+        }
+        
+        /*
+         self.table.tableFooterView = [UIView new];
+         if ([self.item isKindOfClass:[MenuItem class]]) {
+         menuItem = self.item;
+         menuItemOptions = menuItem.standardOptions;
+         menuItemExtras = menuItem.extraOptions;
+         menuItemPrices = menuItem.prices;
+         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objectId == %@", menuItem.objectId];
+         if ([[userDefaultsHelper getFavoriteMenuItems] filteredArrayUsingPredicate:predicate].firstObject) {
+         self.addToFavoritesButton.title = REMOVE_FROM_FAV;
+         }
+         }
+         else if ([self.item isKindOfClass:[Article class]]) {
+         article = self.item;
+         }
+         */
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func pressedAddToCart(_ sender: Any) {
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    @IBAction func pressedAddToFavorites(_ sender: Any) {
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    @IBAction func pressedGoToCart(_ sender: Any) {
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -31,39 +31,42 @@ class PictureHelper: NSObject {
     func setSmallImageFromUrl(_ url: String, _ cell: UITableViewCell) {
         if (cell.isKind(of: ItemCell.ofClass())) {
             if (UserDefaultsHelper.shared.getImageFromUserDefaults(url) != nil) {
-                
+                (cell as! ItemCell).pictureView.image = UserDefaultsHelper.shared.getImageFromUserDefaults(url)
+            }
+            else {
+                DispatchQueue.global(qos: .default).async(execute: {() -> Void in
+                    if let urlFromString = URL(string: url) {
+                        if let data = try? Data(contentsOf: urlFromString) {
+                            if let image = UIImage(data: data) {
+                                UserDefaultsHelper.shared.saveImageToUserDefaults(image, url)
+                                DispatchQueue.main.async(execute: {() -> Void in
+                                    (cell as! ItemCell).pictureView.image = image
+                                })
+                            }
+                        }
+                    }
+                })
+            }
+        }
+        
+        else if (cell.isKind(of: ShoppingCartCell.ofClass())) {
+            if (UserDefaultsHelper.shared.getImageFromUserDefaults(url) != nil) {
+                (cell as! ShoppingCartCell).pictureView.image = UserDefaultsHelper.shared.getImageFromUserDefaults(url)
+            }
+            else {
+                DispatchQueue.global(qos: .default).async(execute: {() -> Void in
+                    if let urlFromString = URL(string: url) {
+                        if let data = try? Data(contentsOf: urlFromString) {
+                            if let image = UIImage(data: data) {
+                                UserDefaultsHelper.shared.saveImageToUserDefaults(image, url)
+                                DispatchQueue.main.async(execute: {() -> Void in
+                                    (cell as! ShoppingCartCell).pictureView.image = image
+                                })
+                            }
+                        }
+                    }
+                })
             }
         }
     }    
 }
- 
-/*-(void)setSmallImagefFromUrl:(NSString *)url forCell:(UITableViewCell *)cell {
- if ([cell isKindOfClass:[ItemCell class]]) {
- if ([userDefaultsHelper getImageFromUserDefaults:url]) {
- ((ItemCell *)cell).pictureView.image = [userDefaultsHelper getImageFromUserDefaults:url];
- }
- else {
- dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
- UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
- [userDefaultsHelper saveImageToUserDefaults:image withKey:url];
- dispatch_async(dispatch_get_main_queue(), ^{
- ((ItemCell *)cell).pictureView.image = image;
- });
- });
- }
- }
- else if ([cell isKindOfClass:[ShoppingCartCell class]]) {
- if ([userDefaultsHelper getImageFromUserDefaults:url]) {
- ((ShoppingCartCell *)cell).pictureView.image = [userDefaultsHelper getImageFromUserDefaults:url];
- }
- else {
- dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
- UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
- [userDefaultsHelper saveImageToUserDefaults:image withKey:url];
- dispatch_async(dispatch_get_main_queue(), ^{
- ((ShoppingCartCell *)cell).pictureView.image = image;
- });
- });
- }
- }
- }*/
