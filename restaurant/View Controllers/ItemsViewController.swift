@@ -57,8 +57,9 @@ class ItemsViewController: UITableViewController {
             let menuItem = items![indexPath.row] as! MenuItem
             cell.titleLabel.text = menuItem.title
             cell.descriptionLabel.text = menuItem.body
-            let picture = menuItem.pictures?.firstObject as! Picture
-            PictureHelper.shared.setSmallImageFromUrl(picture.url!, cell)
+            if let picture = menuItem.pictures?.firstObject {
+                PictureHelper.shared.setSmallImageFromUrl((picture as! Picture).url!, cell)
+            }
         }
         else if (items?.first is Article) {
             let article = items![indexPath.row] as! Article
@@ -85,23 +86,14 @@ class ItemsViewController: UITableViewController {
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if (segue.identifier == "ShowItemDetails") {
-//            let itemDetailsVC = segue.destination as! ItemDetailsViewController
-//            let indexPath = tableView .indexPath(for: sender as! ItemCell)
-//
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "ShowItemDetails") {
+            let itemDetailsVC = segue.destination as! ItemDetailsViewController
+            let indexPath = tableView.indexPath(for: sender as! ItemCell)!
+            itemDetailsVC.item = items?[indexPath.row]
+        }
+    }
     
-    /*-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     if ([segue.identifier isEqualToString:@"ShowItemDetails"]) {
-     ItemDetailsViewController *itemDetailsVC = [segue destinationViewController];
-     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-     itemDetailsVC.item = [items objectAtIndex:indexPath.row];
-     }
-     }
-     
-     -(IBAction)unwindToItemsVC:(UIStoryboardSegue *)segue {
-     }*/
-    
+    @IBAction func unwindToItemsVC(segue:UIStoryboardSegue) {
+    }    
 }
