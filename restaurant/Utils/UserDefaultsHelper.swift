@@ -12,16 +12,14 @@ final class UserDefaultsHelper: NSObject {
     private override init() { }
     
     func addItemToFavorites(_ menuItem: MenuItem) {
-        if var data = UserDefaults.standard.object(forKey: FAVORITES_KEY) as? Data {
-            var favoriteItems = NSKeyedUnarchiver.unarchiveObject(with: data) as? [MenuItem]
-            if (favoriteItems == nil) {
-                favoriteItems = [MenuItem]()
-            }
-            favoriteItems?.append(menuItem)
-            data = NSKeyedArchiver.archivedData(withRootObject: favoriteItems as Any)
-            UserDefaults.standard.set(data, forKey: FAVORITES_KEY)
-            UserDefaults.standard.synchronize()
+        var favoriteItems = [MenuItem]()
+        if let data = UserDefaults.standard.object(forKey: FAVORITES_KEY) {
+            favoriteItems = NSKeyedUnarchiver.unarchiveObject(with: data as! Data) as! [MenuItem]
         }
+        favoriteItems.append(menuItem)
+        let data = NSKeyedArchiver.archivedData(withRootObject: favoriteItems)
+        UserDefaults.standard.set(data, forKey: FAVORITES_KEY)
+        UserDefaults.standard.synchronize()
     }
     
     func removeItemFromFavorites(_ menuItem: MenuItem) {
@@ -54,6 +52,7 @@ final class UserDefaultsHelper: NSObject {
         let menuItemPrice = menuItem.prices?.firstObject as? Price
         let price = menuItemPrice?.value
         let extraOptions = menuItem.extraOptions
+        
         var extraPrice = 0.0;
         
         for extra in extraOptions! {
@@ -62,56 +61,51 @@ final class UserDefaultsHelper: NSObject {
             }
         }
         shoppingCartItem.price = ((price?.doubleValue)! + extraPrice) as NSNumber
-        shoppingCart.totalPrice = (shoppingCart.totalPrice?.doubleValue)! + (shoppingCartItem.price?.doubleValue)! as NSNumber
-        if var data = UserDefaults.standard.object(forKey: SHOPPING_CART_KEY) as? Data {
-            var shoppingCartItems = NSKeyedUnarchiver.unarchiveObject(with: data) as? [ShoppingCartItem]
-            if (shoppingCartItems == nil) {
-                shoppingCartItems = [ShoppingCartItem]()
-            }
-            
-            var preventAdd = true
-            if ((shoppingCartItems?.count)! > 0) {
-                for item in shoppingCartItems! {
-                    preventAdd = preventFromAdd(menuItem, item)
-                    if (preventAdd) {
-                        break
-                    }
+        shoppingCart.totalPrice = NSNumber(value:((shoppingCart.totalPrice?.doubleValue)! + (shoppingCartItem.price?.doubleValue)!))
+        
+        var shoppingCartItems = [ShoppingCartItem]()
+        if let data = UserDefaults.standard.object(forKey: SHOPPING_CART_KEY) as? Data {
+            shoppingCartItems = NSKeyedUnarchiver.unarchiveObject(with: data) as! [ShoppingCartItem]
+        }
+        
+        var preventAdd = false
+        if (shoppingCartItems.count > 0) {
+            preventAdd = true
+            for item in shoppingCartItems {
+                preventAdd = preventFromAdd(menuItem, item)
+                if (preventAdd) {
+                    break
                 }
             }
-            if (shoppingCartItems?.count == 0 || !preventAdd) {
-                shoppingCartItems?.append(shoppingCartItem)
-                data = NSKeyedArchiver.archivedData(withRootObject: shoppingCartItems as Any)
-                UserDefaults.standard.set(data, forKey: SHOPPING_CART_KEY)
-                UserDefaults.standard.synchronize()
-            }
+        }
+        if (!preventAdd) {
+            shoppingCartItems.append(shoppingCartItem)
+            let data = NSKeyedArchiver.archivedData(withRootObject: shoppingCartItems as Any)
+            UserDefaults.standard.set(data, forKey: SHOPPING_CART_KEY)
+            UserDefaults.standard.synchronize()
         }
     }
     
     func preventFromAdd(_ menuItem: MenuItem, _ shoppingCartItem: ShoppingCartItem) -> Bool {
         var prevent = true
-        
-        // если цены не совпадают - добавляем в корзину
-        
+        // if prices are not equal - add to cart
         let menuItemBasicPrice = ((menuItem.prices?.firstObject) as! Price).value
         let shoppingCartItemBasicPrice = ((shoppingCartItem.menuItem?.prices?.firstObject) as! Price).value
-        
         if (menuItemBasicPrice != shoppingCartItemBasicPrice) {
             prevent = false
             return prevent
         }
         else {
-            // если цены совпадают - проверяем стандартные опции
-            
+            // if prices are equal - check standard options
             let menuItemStandardOptions = menuItem.standardOptions
             let shoppingCartItemStandardOptions = shoppingCartItem.menuItem?.standardOptions
-            
             if ((menuItemStandardOptions?.count == 0 && (shoppingCartItemStandardOptions?.count)! > 0) ||
                 ((menuItemStandardOptions?.count)! > 0 && shoppingCartItemStandardOptions?.count == 0)) {
                 prevent = false
                 return prevent
             }
             else {
-                // проверяем стандартные опции на совпадение
+                // comparing standard options
                 for menuItemStandardOption in menuItemStandardOptions! {
                     let p1 = NSPredicate.init(format: "selected = %@", (menuItemStandardOption as! StandardOption).selected!)
                     let p2 = NSPredicate.init(format: "name = %@", (menuItemStandardOption as! StandardOption).name!)
@@ -122,8 +116,7 @@ final class UserDefaultsHelper: NSObject {
                         return prevent
                     }
                 }
-                
-                // если стандартные опции совпадают - проверяем нестандартные опции
+                // if standard options are equal - check extra options
                 let menuItemExtraOptions = menuItem.extraOptions
                 let shoppingCartItemExtraOptions = shoppingCartItem.menuItem?.extraOptions
                 
@@ -133,7 +126,7 @@ final class UserDefaultsHelper: NSObject {
                     return prevent
                 }
                 else {
-                    // проверяем нестандартные опции на совпадение
+                    // comparing extra options
                     for menuItemExtraOption in menuItemExtraOptions! {
                         let p1 = NSPredicate.init(format: "selected = %@", (menuItemExtraOption as! ExtraOption).selected!)
                         let p2 = NSPredicate.init(format: "name = %@", (menuItemExtraOption as! ExtraOption).name!)
@@ -175,22 +168,20 @@ final class UserDefaultsHelper: NSObject {
     
     func preventFromDelete(_ menuItem: MenuItem, _ shoppingCartItem: ShoppingCartItem) -> Bool {
         var prevent = true
-        
         let checkExtraOptions: (() -> (Bool))? = {
-            // проверяем нестандартные опции
+            // check extra options
             let menuItemExtraOptions = menuItem.extraOptions
             let shoppingCartItemExtraOptions = shoppingCartItem.menuItem?.extraOptions
-            
             if (menuItemExtraOptions?.count == shoppingCartItemExtraOptions?.count) {
                 if ((menuItemExtraOptions?.count)! > 0) {
-                    // проверяем нестандартные опции на совпадение
+                    // compare extra options
                     for menuItemExtraOption in menuItemExtraOptions! {
                         let p1 = NSPredicate.init(format: "selected = %@", (menuItemExtraOption as! ExtraOption).selected!)
                         let p2 = NSPredicate.init(format: "name = %@", (menuItemExtraOption as! ExtraOption).name!)
                         let p3 = NSPredicate.init(format: "value = %@", (menuItemExtraOption as! ExtraOption).value!)
                         let predicate = NSCompoundPredicate.init(andPredicateWithSubpredicates: [p1, p2, p3])
                         let existingItems = shoppingCartItemExtraOptions?.filtered(using: predicate)
-                        if (existingItems?.count == 0) {
+                        if ((existingItems?.count)! > 0) {
                             prevent = false
                             return prevent
                         }
@@ -203,20 +194,16 @@ final class UserDefaultsHelper: NSObject {
             }
             return prevent
         }
-        
-        // если цены не совпадают - сразу не катит
+        // if prices are not equal - prevent = YES;
         let menuItemBasicPrice = (menuItem.prices?.firstObject as! Price).value
         let shoppingCartItemBasicPrice = (shoppingCartItem.menuItem?.prices?.firstObject as! Price).value
-        
         if (menuItemBasicPrice == shoppingCartItemBasicPrice) {
-            // проверяем стандартные опции
-            
+            // check standard options
             let menuItemStandardOptions = menuItem.standardOptions
             let shoppingCartItemStandardOptions = shoppingCartItem.menuItem?.standardOptions
-            
             if (menuItemStandardOptions?.count == shoppingCartItemStandardOptions?.count) {
                 if ((menuItemStandardOptions?.count)! > 0) {
-                    // проверяем стандартные опции на совпадение
+                    // compare standard options
                     for menuItemStandardOption in menuItemStandardOptions! {
                         let p1 = NSPredicate.init(format: "selected = %@", (menuItemStandardOption as! StandardOption).selected!)
                         let p2 = NSPredicate.init(format: "name = %@", (menuItemStandardOption as! StandardOption).name!)
@@ -249,8 +236,8 @@ final class UserDefaultsHelper: NSObject {
     
     func getShoppingCartItems() -> [ShoppingCartItem] {
         if let data = UserDefaults.standard.object(forKey: SHOPPING_CART_KEY) as? Data {
-            if let shoppingCartItems = NSKeyedUnarchiver.unarchiveObject(with: data) as? [ShoppingCartItem] {
-                return shoppingCartItems
+            if let shoppingCartItems = NSKeyedUnarchiver.unarchiveObject(with: data) {
+                return shoppingCartItems as! [ShoppingCartItem]
             }
         }
         return [ShoppingCartItem]()
@@ -258,7 +245,6 @@ final class UserDefaultsHelper: NSObject {
     
     func saveShoppingCartItem(_ shoppingCartItem: ShoppingCartItem, _ index: Int) {
         let shoppingCartItems = self.getShoppingCartItems()
-        // ищем в shoppingCartItems нужный объект (по индексу)
         let cartItem = shoppingCartItems[index]
         cartItem.quantity = shoppingCartItem.quantity
         let data = NSKeyedArchiver.archivedData(withRootObject: shoppingCartItems as Any)
@@ -276,7 +262,7 @@ final class UserDefaultsHelper: NSObject {
         }
         if (images![key] == nil) {
             images![key] = image;
-        }        
+        }
         let data = NSKeyedArchiver.archivedData(withRootObject: images as Any)
         UserDefaults.standard.set(data, forKey: IMAGES_KEY)
         UserDefaults.standard.synchronize()

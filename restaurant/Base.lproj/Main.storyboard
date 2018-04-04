@@ -279,7 +279,7 @@
         <!--Shopping Cart-->
         <scene sceneID="8Y6-2D-TSG">
             <objects>
-                <tableViewController id="rsG-91-rxU" customClass="ShoppingCartViewController" sceneMemberID="viewController">
+                <tableViewController id="rsG-91-rxU" customClass="ShoppingCartViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0in-tl-Stt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -315,12 +315,6 @@
                                             <rect key="frame" x="277.33333333333331" y="115.66666666666667" width="120.66666666666669" height="18.000000000000014"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="752" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UY-j7-XcQ">
-                                            <rect key="frame" x="99" y="55.666666666666657" width="299" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPy-fk-g0J">
@@ -371,6 +365,12 @@
                                                 <action selector="pressedIncreaseQuantity:" destination="CzJ-st-1oq" eventType="touchUpInside" id="fB1-Ak-cgZ"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="752" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UY-j7-XcQ">
+                                            <rect key="frame" x="99" y="55" width="299" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="BDj-ek-6CQ" firstAttribute="top" secondItem="thR-dG-Nwn" secondAttribute="bottom" constant="8" id="AHz-2v-pWJ"/>
@@ -407,6 +407,7 @@
                                     <outlet property="pictureView" destination="jaS-1q-1dq" id="NKw-Sa-KQh"/>
                                     <outlet property="quantityTextField" destination="nOn-JW-dR7" id="iHZ-aW-VLh"/>
                                     <outlet property="sizeAndQuantityLabel" destination="jzw-FT-QIh" id="GLS-Qg-R0e"/>
+                                    <outlet property="titleLabel" destination="tt3-88-AOb" id="nn3-tR-UMY"/>
                                     <outlet property="totalLabel" destination="KPy-fk-g0J" id="kaR-ek-DJr"/>
                                 </connections>
                             </tableViewCell>
@@ -429,7 +430,7 @@
                     <navigationItem key="navigationItem" title="Shopping Cart" id="p7y-dI-YBS"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="proceedToPaymentButton" destination="isY-Oq-P1p" id="rgu-g4-Z59"/>
+                        <outlet property="proceedToPaymentButton" destination="isY-Oq-P1p" id="dQ3-yN-hOO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8U-nE-H0r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -735,6 +736,9 @@
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lkd-mN-dln">
                                             <rect key="frame" x="349" y="8" width="51" height="31"/>
                                             <color key="onTintColor" red="0.36078431370000003" green="0.72156862749999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="selectedSwitchAction:" destination="S6g-At-Way" eventType="valueChanged" id="yWc-aW-tJC"/>
+                                            </connections>
                                         </switch>
                                     </subviews>
                                     <constraints>
@@ -814,7 +818,7 @@
                         <outlet property="table" destination="iP1-qJ-sfl" id="Hwp-uq-EWG"/>
                         <outlet property="tableView" destination="iP1-qJ-sfl" id="pQu-5o-ub6"/>
                         <segue destination="rsG-91-rxU" kind="show" identifier="ShowCart" id="G4J-6V-HZN"/>
-                        <segue destination="ghu-aN-JbL" kind="unwind" identifier="unwindToItemsVC" unwindAction="unwindToItemsVC:" id="KUB-zR-o6f"/>
+                        <segue destination="ghu-aN-JbL" kind="unwind" identifier="unwindToItemsVC" unwindAction="unwindToItemsVCWithSegue:" id="ejh-IA-W31"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IJW-iR-OSS" userLabel="First Responder" sceneMemberID="firstResponder"/>

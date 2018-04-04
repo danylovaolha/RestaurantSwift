@@ -31,7 +31,7 @@ class AlertViewController: UIViewController {
         let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
         alert.view.tintColor = ColorHelper.shared.getColorFromHex("#FF9300", 1)
         let contitueShopping = UIAlertAction.init(title: "Back", style: .default, handler: actionHandler1)
-        let goToCart = UIAlertAction.init(title: "Back", style: .default, handler: actionHandler2)
+        let goToCart = UIAlertAction.init(title: "Go to cart", style: .default, handler: actionHandler2)
         alert.addAction(contitueShopping)
         alert.addAction(goToCart)
         target.present(alert, animated: true, completion: nil)

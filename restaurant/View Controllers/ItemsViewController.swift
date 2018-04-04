@@ -7,7 +7,7 @@ class ItemsViewController: UITableViewController {
     private let FAVORITES = "Favorites"
     private let NEWS = "News"
     private let backendless = Backendless.sharedInstance()!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
@@ -29,17 +29,19 @@ class ItemsViewController: UITableViewController {
             })
         }
         else {
-            let queryBuilder = DataQueryBuilder()!
-            queryBuilder.setWhereClause(String(format:"category.title='%@'", navigationItem.title!))
-            backendless.data.of(MenuItem.ofClass()).find(queryBuilder, response: { menuItems in
-                self.items = menuItems
-                self.tableView.reloadData()
-            }, error: { fault in
-                AlertViewController.showErrorAlert(fault!, self, nil)
-            })
+            if let title = navigationItem.title {
+                let queryBuilder = DataQueryBuilder()!
+                queryBuilder.setWhereClause(String(format:"category.title='%@'", title))
+                backendless.data.of(MenuItem.ofClass()).find(queryBuilder, response: { menuItems in
+                    self.items = menuItems
+                    self.tableView.reloadData()
+                }, error: { fault in
+                    AlertViewController.showErrorAlert(fault!, self, nil)
+                })
+            }
         }
     }
-    
+        
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

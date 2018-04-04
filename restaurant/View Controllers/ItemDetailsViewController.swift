@@ -188,7 +188,7 @@ class ItemDetailsViewController: UITableViewController {
             cell.selectionStyle = .none
             cell.menuItem = menuItem
             let extra = menuItemExtras![indexPath.row]
-            cell.optionLabel.text = String(format:"%@: $%@", extra.name!, extra.value!)
+            cell.optionLabel.text = String(format:"%@: $%.2f", extra.name!, (extra.value?.doubleValue)!)
             cell.selectedSwitch.setOn((extra.selected?.boolValue)!, animated: true)
             return cell
         }
@@ -196,7 +196,7 @@ class ItemDetailsViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SizeAndPriceCell", for: indexPath) as! SizeAndPriceCell
             cell.selectionStyle = .none
             let price = menuItemPrices![indexPath.row]
-            cell.sizeAndPriceLabel.text = String(format:"%@: $%@", price.name!, price.value!)
+            cell.sizeAndPriceLabel.text = String(format:"%@: $%.2f", price.name!, (price.value?.doubleValue)!)
             return cell;
         }
         return UITableViewCell()
@@ -221,7 +221,7 @@ class ItemDetailsViewController: UITableViewController {
         Types.tryblock({
             let selectedPrice = self.menuItem?.prices![(self.currentPriceIndexPath?.row)!] as! Price
             self.menuItem?.prices = [selectedPrice]
-            UserDefaultsHelper.shared.addItemToShoppingCart(self.menuItem!)
+            UserDefaultsHelper.shared.addItemToShoppingCart(self.menuItem!)            
             self.menuItem?.prices = (self.item as! MenuItem).prices
             AlertViewController.showAddedToCartAlert("Shopping Cart", "Menu item added to cart", self, { continueShopping in
                 self.performSegue(withIdentifier: "unwindToItemsVC", sender: nil)
@@ -231,7 +231,6 @@ class ItemDetailsViewController: UITableViewController {
                 self.table.isUserInteractionEnabled = false
                 self.performSegue(withIdentifier: "ShowCart", sender: nil)
             })
-            
         }, catchblock: { exception in
             let fault = Fault.fault((exception as! NSException).name.rawValue, detail: (exception as! NSException).reason)
             AlertViewController.showErrorAlert(fault as! Fault, self, nil)
