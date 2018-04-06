@@ -196,7 +196,7 @@ class ItemDetailsViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SizeAndPriceCell", for: indexPath) as! SizeAndPriceCell
             cell.selectionStyle = .none
             let price = menuItemPrices![indexPath.row]
-            cell.sizeAndPriceLabel.text = String(format:"%@: $%.2f", price.name!, (price.value?.doubleValue)!)
+            cell.sizeAndPriceLabel.text = String(format:"%@: %@%.2f", price.name!, (price.currency)!, (price.value?.doubleValue)!)
             return cell;
         }
         return UITableViewCell()

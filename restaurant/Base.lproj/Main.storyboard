@@ -437,10 +437,10 @@
             </objects>
             <point key="canvasLocation" x="4098.5507246376819" y="1143.75"/>
         </scene>
-        <!--Delivery method-->
+        <!--Delivery methods-->
         <scene sceneID="Nar-Ah-GvT">
             <objects>
-                <tableViewController id="8Wd-EP-57p" customClass="DeliveryMethodsViewController" sceneMemberID="viewController">
+                <tableViewController id="8Wd-EP-57p" customClass="DeliveryMethodsViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BQ8-x0-MXn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -476,9 +476,9 @@
                             <outlet property="delegate" destination="8Wd-EP-57p" id="CPg-VX-MuY"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Delivery method" id="Zqr-ue-ioL"/>
+                    <navigationItem key="navigationItem" title="Delivery methods" id="Zqr-ue-ioL"/>
                     <connections>
-                        <segue destination="NYA-xE-u8x" kind="show" identifier="ShowDineInOrTakeAway" id="1fU-ld-ru4"/>
+                        <segue destination="NYA-xE-u8x" kind="show" identifier="ShowDeliveryMethod" id="1fU-ld-ru4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LAh-7Q-43X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -488,13 +488,13 @@
         <!--Delivery View Controller-->
         <scene sceneID="tVO-Px-5on">
             <objects>
-                <tableViewController id="NYA-xE-u8x" customClass="DeliveryViewController" sceneMemberID="viewController">
+                <tableViewController id="NYA-xE-u8x" customClass="DeliveryViewController" customModule="restaurant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="71r-VK-Gws">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RestaurantInfoCell" rowHeight="135" id="iNx-RK-ikK" customClass="RestaurantInfoCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RestaurantInfoCell" rowHeight="135" id="iNx-RK-ikK" customClass="RestaurantInfoCell" customModule="restaurant" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="135"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iNx-RK-ikK" id="goZ-Ui-Id6">
@@ -542,7 +542,7 @@
                                     <outlet property="storeNameLabel" destination="da8-ci-qng" id="ydR-YU-GPh"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextFieldCell" rowHeight="50" id="3Bf-FC-50L" customClass="TextFieldCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextFieldCell" rowHeight="50" id="3Bf-FC-50L" customClass="TextFieldCell" customModule="restaurant" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="163" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Bf-FC-50L" id="ct7-Lr-SyK">
@@ -565,10 +565,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="textField" destination="ztB-JD-pbu" id="Pjb-Dk-nFE"/>
+                                    <outlet property="textField" destination="ztB-JD-pbu" id="NCZ-t2-jUZ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextViewCell" id="Scj-Us-0N0" customClass="TextViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextViewCell" id="Scj-Us-0N0" customClass="TextViewCell" customModule="restaurant" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="213" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Scj-Us-0N0" id="daD-44-ZTm">
@@ -592,7 +592,7 @@
                                 </tableViewCellContentView>
                                 <color key="tintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <outlet property="textView" destination="XZl-Oz-CWa" id="97e-eW-EkK"/>
+                                    <outlet property="textView" destination="XZl-Oz-CWa" id="m0u-Ty-hBw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -606,15 +606,15 @@
                         <barButtonItem title="Confirm: $0" id="68m-XE-gUF">
                             <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="pressedConfirmButton:" destination="NYA-xE-u8x" id="xy5-5b-s1d"/>
+                                <action selector="pressedConfirmButton:" destination="NYA-xE-u8x" id="0AO-ab-dxW"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="EQ7-Je-07N"/>
                     </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="confirmButton" destination="68m-XE-gUF" id="Mpa-3J-ZBL"/>
-                        <segue destination="VH1-fB-e6C" kind="unwind" identifier="unwindToHomeVC" unwindAction="unwindToHomeVC:" id="Obl-gD-LyF"/>
+                        <outlet property="confirmButton" destination="68m-XE-gUF" id="wdP-zo-IZq"/>
+                        <segue destination="VH1-fB-e6C" kind="unwind" identifier="unwindToHomeVC" unwindAction="unwindToHomeVCWithSegue:" id="ruE-no-dbN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="trN-af-JYH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1072,7 +1072,7 @@
         <image name="welcome" width="1280" height="1280"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="c6o-eF-QRH"/>
+        <segue reference="eDe-TD-yJC"/>
         <segue reference="4Qb-oy-1uw"/>
         <segue reference="G4J-6V-HZN"/>
     </inferredMetricsTieBreakers>

@@ -18,10 +18,7 @@ class ShoppingCartCell: UITableViewCell {
     }
     
     func saveChangedQuantity(_ sender: Any, _ quantity: Int) {
-        shoppingCartItem?.quantity = NSNumber.init(value: quantity)
-        
-        print(shoppingCartItem?.quantity)
-        
+        shoppingCartItem?.quantity = NSNumber.init(value: quantity)        
         let buttonPosition = (sender as! UIButton).convert(CGPoint.zero, to: self.superview)
         let indexPath = (self.superview as! UITableView).indexPathForRow(at: buttonPosition)
         UserDefaultsHelper.shared.saveShoppingCartItem(shoppingCartItem!, (indexPath?.row)!)

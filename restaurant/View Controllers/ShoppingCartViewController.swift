@@ -102,6 +102,17 @@ class ShoppingCartViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        Backendless.sharedInstance().data.of(DeliveryMethod.ofClass()).find({ deliveryMethods in
+            let deliveryMethodVC = segue.destination as! DeliveryMethodsViewController
+            deliveryMethodVC.deliveryMethods = deliveryMethods as! [DeliveryMethod]
+            deliveryMethodVC.tableView.reloadData()
+        }, error: { fault in
+            AlertViewController.showErrorAlert(fault!, self, nil)
+            
+        })
+    }
 }
 
 

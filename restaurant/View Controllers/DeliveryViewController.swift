@@ -1,94 +1,197 @@
-//
-//  DeliveryViewController.swift
-//  restaurant
-//
-//  Created by Olga Danylova on /22/318.
-//
 
 import UIKit
 
-class DeliveryViewController: UITableViewController {
-
+class DeliveryViewController: UITableViewController, UITextFieldDelegate, UITextViewDelegate {
+    
+    @IBOutlet weak var confirmButton: UIBarButtonItem!
+    var business: Business?
+    var deliveryMethodName: String?
+    var inputFields: [DeliveryInputField]?
+    
+    private var readyToSendEmail = true
+    private var singleLineInputFields = [DeliveryInputField]()
+    private var multiLineInputFields = [DeliveryInputField]()
+    private var singleLineInputFieldsDictionary = [String : String]()
+    private var multiLineInputFieldsDictionary = [String : String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.tableFooterView = UIView()
+        tableView.keyboardDismissMode = .onDrag
+        confirmButton.title = String(format:"Confirm: $%.2f", (ShoppingCart.shared.totalPrice?.doubleValue)!)
+        singleLineInputFields = (inputFields?.filter({ $0.multilineInput == 0 }))!
+        multiLineInputFields = (inputFields?.filter({ $0.multilineInput == 1 }))!
+        for inputField in singleLineInputFields {
+            singleLineInputFieldsDictionary[inputField.title!] = ""
+        }
+        for inputField in multiLineInputFields {
+            multiLineInputFieldsDictionary[inputField.title!] = ""
+        }
+        readyToSendEmail = true
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setToolbarHidden(false, animated: true)
     }
-
-    // MARK: - Table view data source
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setToolbarHidden(true, animated: true)
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 3
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if (section == 0) {
+            return 1
+        }
+        else if (section == 1) {
+            return singleLineInputFields.count
+        }
+        else if (section == 2) {
+            return multiLineInputFields.count
+        }
         return 0
     }
-
-    /*
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.section == 0) {
+            return 200
+        }
+        return UITableViewAutomaticDimension
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+        if (indexPath.section == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantInfoCell", for: indexPath) as! RestaurantInfoCell
+            cell.storeNameLabel.text = business?.storeName
+            cell.addressLabel.text = business?.address
+            return cell
+        }
+        else if (indexPath.section == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
+            cell.textField.placeholder = singleLineInputFields[indexPath.row].title
+            cell.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+            return cell
+        }
+        else if (indexPath.section == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
+            cell.textView.delegate = self
+            cell.textView.text = multiLineInputFields[indexPath.row].title
+            cell.textView.textColor = ColorHelper.shared.getColorFromHex("#C7C7CD", 1)
+            return cell
+        }
+        return UITableViewCell()
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        singleLineInputFieldsDictionary[textField.placeholder!] = textField.text
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.becomeFirstResponder()
+        return false
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        let indexPath = tableView.indexPath(for: textView.superview?.superview as! UITableViewCell)!
+        if (textView.text == multiLineInputFields[indexPath.row].title) {
+            textView.text = ""
+            textView.textColor = ColorHelper.shared.getColorFromHex("#2C3E50", 1)
+        }
+        textView.becomeFirstResponder()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if (textView.text.isEmpty) {
+            let indexPath = tableView.indexPath(for: textView.superview?.superview as! UITableViewCell)!
+            textView.text = multiLineInputFields[indexPath.row].title
+            textView.textColor = ColorHelper.shared.getColorFromHex("#C7C7CD", 1)
+        }
+        textView.resignFirstResponder()
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let indexPath = tableView.indexPath(for: textView.superview?.superview as! UITableViewCell)!
+        if (textView.text.isEmpty) {
+            textView.text = multiLineInputFields[indexPath.row].title
+            textView.textColor = ColorHelper.shared.getColorFromHex("#C7C7CD", 1)
+            textView.becomeFirstResponder()
+        }
+        else {
+            multiLineInputFieldsDictionary[multiLineInputFields[indexPath.row].title!] = textView.text
+        }
+        let currentOffset = tableView.contentOffset
+        UIView.setAnimationsEnabled(false)
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
+        tableView.setContentOffset(currentOffset, animated: false)
+        tableView.scrollToRow(at: NSIndexPath.init(row: 0, section: 2) as IndexPath, at: .bottom, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "ShowMap") {
+            let mapVC = segue.destination as! MapViewController
+            mapVC.business = business
+        }
     }
-    */
-
+    
+    @IBAction func pressedConfirmButton(_ sender: Any) {
+        var emailText = String(format: "%@\n%@\n%@\n\nYou have ordered a %@\n\nOrdered items:",
+                               (business?.storeName)!, (business?.address)!, (business?.phoneNumber)!, deliveryMethodName!)
+        
+        // Shopping cart items
+        for item in ShoppingCart.shared.shoppingCartItems! {
+            var itemOptions = ""
+            for option in (item.menuItem?.standardOptions)! {
+                if ((option as! StandardOption).selected == 1) {
+                    itemOptions.append(String(format: "%@", (option as! StandardOption).name!))
+                }
+            }
+            for option in (item.menuItem?.extraOptions)! {
+                if ((option as! ExtraOption).selected == 1) {
+                    itemOptions.append(String(format: "%@", (option as! ExtraOption).name!))
+                }
+            }
+            itemOptions.removeLast(2)
+            emailText.append(String(format: "\n• %@(%@) = %@ x $%.2f", (item.menuItem?.title)!, itemOptions, item.quantity!, (item.price?.doubleValue)!))
+        }
+        emailText.append(String(format: "\n----------\nTotal:$%.2f\n\nCustomers' info:", (ShoppingCart.shared.totalPrice?.doubleValue)!))
+        
+        for field in singleLineInputFieldsDictionary.keys {
+            let value = singleLineInputFieldsDictionary[field]
+            if (value?.isEmpty)! {
+                
+                
+                let fault = Fault.fault("AAA") as! Fault
+                
+                
+                readyToSendEmail = false
+                break
+            }
+            else {
+                emailText.append(String(format: "\n• %@: %@", field, singleLineInputFieldsDictionary[field]!))
+                readyToSendEmail = true
+            }
+        }
+        
+        for field in multiLineInputFieldsDictionary.keys {
+            let value = multiLineInputFieldsDictionary[field]
+            if (!(value?.isEmpty)!) {
+                emailText.append(String(format: "\n• %@: %@", field, multiLineInputFieldsDictionary[field]!))
+            }
+        }
+        if (readyToSendEmail) {
+            AlertViewController.showSendEmailAlert("Order confirmation", emailText, self, {
+                AlertViewController.showAlertWithTitle("Order confirmation", "Confirmation send", self, { action in
+                    //ShoppingCart.shared.clearCart()
+                    self.performSegue(withIdentifier: "unwindToHomeVC", sender: nil)
+                })
+            })
+        }
+    }
 }

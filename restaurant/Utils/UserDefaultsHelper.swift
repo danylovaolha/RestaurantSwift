@@ -248,7 +248,7 @@ final class UserDefaultsHelper: NSObject {
         let cartItem = shoppingCartItems[index]
         cartItem.quantity = shoppingCartItem.quantity
         let data = NSKeyedArchiver.archivedData(withRootObject: shoppingCartItems as Any)
-        UserDefaults.standard.set(data, forKey: FAVORITES_KEY)
+        UserDefaults.standard.set(data, forKey: SHOPPING_CART_KEY)
         UserDefaults.standard.synchronize()
     }
     
