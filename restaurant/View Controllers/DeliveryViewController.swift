@@ -4,9 +4,9 @@ import UIKit
 class DeliveryViewController: UITableViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var confirmButton: UIBarButtonItem!
-    var business: Business?
-    var deliveryMethodName: String?
-    var inputFields: [DeliveryInputField]?
+    var business = Business()
+    var deliveryMethodName = ""
+    var inputFields = [DeliveryInputField]()
     
     private var readyToSendEmail = true
     private var singleLineInputFields = [DeliveryInputField]()
@@ -19,8 +19,8 @@ class DeliveryViewController: UITableViewController, UITextFieldDelegate, UIText
         tableView.tableFooterView = UIView()
         tableView.keyboardDismissMode = .onDrag
         confirmButton.title = String(format:"Confirm: $%.2f", (ShoppingCart.shared.totalPrice?.doubleValue)!)
-        singleLineInputFields = (inputFields?.filter({ $0.multilineInput == 0 }))!
-        multiLineInputFields = (inputFields?.filter({ $0.multilineInput == 1 }))!
+        singleLineInputFields = inputFields.filter({ $0.multilineInput == 0 })
+        multiLineInputFields = inputFields.filter({ $0.multilineInput == 1 })
         for inputField in singleLineInputFields {
             singleLineInputFieldsDictionary[inputField.title!] = ""
         }
@@ -67,8 +67,8 @@ class DeliveryViewController: UITableViewController, UITextFieldDelegate, UIText
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantInfoCell", for: indexPath) as! RestaurantInfoCell
-            cell.storeNameLabel.text = business?.storeName
-            cell.addressLabel.text = business?.address
+            cell.storeNameLabel.text = business.storeName
+            cell.addressLabel.text = business.address
             return cell
         }
         else if (indexPath.section == 1) {
@@ -142,34 +142,36 @@ class DeliveryViewController: UITableViewController, UITextFieldDelegate, UIText
     
     @IBAction func pressedConfirmButton(_ sender: Any) {
         var emailText = String(format: "%@\n%@\n%@\n\nYou have ordered a %@\n\nOrdered items:",
-                               (business?.storeName)!, (business?.address)!, (business?.phoneNumber)!, deliveryMethodName!)
-        
-        // Shopping cart items
-        for item in ShoppingCart.shared.shoppingCartItems! {
+                               (business.storeName)!, (business.address)!, (business.phoneNumber)!, deliveryMethodName)
+        for item in ShoppingCart.shared.shoppingCartItems {
             var itemOptions = ""
             for option in (item.menuItem?.standardOptions)! {
                 if ((option as! StandardOption).selected == 1) {
-                    itemOptions.append(String(format: "%@", (option as! StandardOption).name!))
+                    itemOptions.append(String(format: "%@, ", (option as! StandardOption).name!))
                 }
             }
             for option in (item.menuItem?.extraOptions)! {
                 if ((option as! ExtraOption).selected == 1) {
-                    itemOptions.append(String(format: "%@", (option as! ExtraOption).name!))
+                    itemOptions.append(String(format: "%@, ", (option as! ExtraOption).name!))
                 }
             }
-            itemOptions.removeLast(2)
-            emailText.append(String(format: "\n• %@(%@) = %@ x $%.2f", (item.menuItem?.title)!, itemOptions, item.quantity!, (item.price?.doubleValue)!))
+            if (itemOptions.count >= 2) {
+                itemOptions.removeLast(2)
+                emailText.append(String(format: "\n• %@(%@) = %@ x $%.2f", (item.menuItem?.title)!, itemOptions, item.quantity!, (item.price?.doubleValue)!))
+            }
+            else {
+                emailText.append(String(format: "\n• %@ = %@ x $%.2f", (item.menuItem?.title)!, item.quantity!, (item.price?.doubleValue)!))
+            }
+            
+            
         }
         emailText.append(String(format: "\n----------\nTotal:$%.2f\n\nCustomers' info:", (ShoppingCart.shared.totalPrice?.doubleValue)!))
         
         for field in singleLineInputFieldsDictionary.keys {
             let value = singleLineInputFieldsDictionary[field]
             if (value?.isEmpty)! {
-                
-                
-                let fault = Fault.fault("AAA") as! Fault
-                
-                
+                let fault = Fault.fault("Field '\(field)' is required") as! Fault
+                AlertViewController.showErrorAlert(fault, self, nil)
                 readyToSendEmail = false
                 break
             }
@@ -188,8 +190,9 @@ class DeliveryViewController: UITableViewController, UITextFieldDelegate, UIText
         if (readyToSendEmail) {
             AlertViewController.showSendEmailAlert("Order confirmation", emailText, self, {
                 AlertViewController.showAlertWithTitle("Order confirmation", "Confirmation send", self, { action in
-                    //ShoppingCart.shared.clearCart()
-                    self.performSegue(withIdentifier: "unwindToHomeVC", sender: nil)
+                    ShoppingCart.shared.clearCart()
+                    print(UserDefaultsHelper.shared.getShoppingCartItems())
+                    self.performSegue(withIdentifier: "unwindToItemsVC", sender: nil)
                 })
             })
         }

@@ -7,7 +7,6 @@ final class UserDefaultsHelper: NSObject {
     private let FAVORITES_KEY = "restaurantFavorites"
     private let SHOPPING_CART_KEY = "restaurantShoppingCart"
     private let IMAGES_KEY = "restaurantImages"
-    private let shoppingCart = ShoppingCart.shared
     
     private override init() { }
     
@@ -61,7 +60,7 @@ final class UserDefaultsHelper: NSObject {
             }
         }
         shoppingCartItem.price = ((price?.doubleValue)! + extraPrice) as NSNumber
-        shoppingCart.totalPrice = NSNumber(value:((shoppingCart.totalPrice?.doubleValue)! + (shoppingCartItem.price?.doubleValue)!))
+        ShoppingCart.shared.totalPrice = NSNumber(value:((ShoppingCart.shared.totalPrice?.doubleValue)! + (shoppingCartItem.price?.doubleValue)!))
         
         var shoppingCartItems = [ShoppingCartItem]()
         if let data = UserDefaults.standard.object(forKey: SHOPPING_CART_KEY) as? Data {
@@ -229,7 +228,7 @@ final class UserDefaultsHelper: NSObject {
             var shoppingCartItems = NSKeyedUnarchiver.unarchiveObject(with: data) as? [ShoppingCartItem]
             shoppingCartItems?.removeAll()
             data = NSKeyedArchiver.archivedData(withRootObject: shoppingCartItems as Any)
-            UserDefaults.standard.set(data, forKey: FAVORITES_KEY)
+            UserDefaults.standard.set(data, forKey: SHOPPING_CART_KEY)
             UserDefaults.standard.synchronize()
         }
     }
@@ -252,20 +251,22 @@ final class UserDefaultsHelper: NSObject {
         UserDefaults.standard.synchronize()
     }
     
-    func saveImageToUserDefaults(_ image: UIImage, _ key: String) {
-        var images: [String : Any]?
-        if let data = UserDefaults.standard.object(forKey: IMAGES_KEY) as? Data {
-            images = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : UIImage]
+    func saveImageToUserDefaults(_ image: UIImage?, _ key: String) {
+        if (image != nil) {
+            var images = [String : Any]()
+            if let data = UserDefaults.standard.object(forKey: IMAGES_KEY) as? Data {
+                images = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]
+            }
+            else {
+                images = [String : UIImage]()
+            }
+            if (images[key] == nil) {
+                images[key] = image;
+            }
+            let data = NSKeyedArchiver.archivedData(withRootObject: images as Any)
+            UserDefaults.standard.set(data, forKey: IMAGES_KEY)
+            UserDefaults.standard.synchronize()
         }
-        else {
-            images = [String : UIImage]()
-        }
-        if (images![key] == nil) {
-            images![key] = image;
-        }
-        let data = NSKeyedArchiver.archivedData(withRootObject: images as Any)
-        UserDefaults.standard.set(data, forKey: IMAGES_KEY)
-        UserDefaults.standard.synchronize()
     }
     
     func getImageFromUserDefaults(_ key: String) -> UIImage? {

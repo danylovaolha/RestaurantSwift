@@ -14,7 +14,7 @@ class ShoppingCartViewController: UITableViewController {
     }
     
     func proceedToPaymentButtonEnabled() {
-        if ((ShoppingCart.shared.shoppingCartItems?.count)! > 0) {
+        if (ShoppingCart.shared.shoppingCartItems.count > 0) {
             proceedToPaymentButton.isEnabled = true
         }
         else {
@@ -41,15 +41,12 @@ class ShoppingCartViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (ShoppingCart.shared.shoppingCartItems != nil && (ShoppingCart.shared.shoppingCartItems?.count)! > 0) {
-            return (ShoppingCart.shared.shoppingCartItems?.count)!
-        }
-        return 0
+        return ShoppingCart.shared.shoppingCartItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {      
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingCartCell", for: indexPath) as! ShoppingCartCell
-        let shoppingCartItem = ShoppingCart.shared.shoppingCartItems![indexPath.row]
+        let shoppingCartItem = ShoppingCart.shared.shoppingCartItems[indexPath.row]
         
         cell.quantityTextField.text = String(format: "%@", shoppingCartItem.quantity!)
         cell.shoppingCartItem = shoppingCartItem
@@ -93,7 +90,7 @@ class ShoppingCartViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            let shoppingCartItem = ShoppingCart.shared.shoppingCartItems![indexPath.row]
+            let shoppingCartItem = ShoppingCart.shared.shoppingCartItems[indexPath.row]
             UserDefaultsHelper.shared.removeItemFromShoppingCart(shoppingCartItem.menuItem!)
             ShoppingCart.shared.totalPrice = 0
             ShoppingCart.shared.shoppingCartItems = UserDefaultsHelper.shared.getShoppingCartItems()

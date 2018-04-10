@@ -40,10 +40,10 @@ class DeliveryMethodsViewController: UITableViewController {
         let deliveryMethod = deliveryMethods[indexPath.row]
         let deliveryVC = segue.destination as! DeliveryViewController
         deliveryVC.navigationItem.title = deliveryMethod.name
-        deliveryVC.deliveryMethodName = deliveryMethod.name
-        deliveryVC.inputFields = deliveryMethod.inputFields as? [DeliveryInputField]
+        deliveryVC.deliveryMethodName = deliveryMethod.name!
+        deliveryVC.inputFields = deliveryMethod.inputFields as! [DeliveryInputField]
         Backendless.sharedInstance().data.of(Business.ofClass()).findFirst({ business in
-            deliveryVC.business = business as? Business
+            deliveryVC.business = business as! Business
             deliveryVC.tableView.reloadData()
         }, error: { fault in
             AlertViewController.showErrorAlert(fault!, self, nil)

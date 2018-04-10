@@ -3,11 +3,11 @@ import UIKit
 
 class AboutUsViewController: UITableViewController {
     
-    var business: Business?
-    var openHours: [String]?
+    var business = Business()
+    var openHours = [String]()
     
-    private var contacts: [String]?
-    private var socialNetworks: [String]?
+    private var contacts = [String]()
+    private var socialNetworks = [String]()
     
     private let CALL_US = "✆ Call us"
     private let SEND_EMAIL = "✉️ Send email"
@@ -30,18 +30,15 @@ class AboutUsViewController: UITableViewController {
             return 1
         }
         else if (section == 2) {
-            if (openHours != nil) {
-                return (openHours?.count)!
-            }
-            return 0
+            return openHours.count
         }
         else if (section == 3) {
             contacts = [CALL_US, SEND_EMAIL];
-            return (contacts?.count)!
+            return contacts.count
         }
         else if (section == 4) {
             socialNetworks = [FACEBOOK, TWITTER, INSTAGRAM, PINTEREST];
-            return (socialNetworks?.count)!
+            return socialNetworks.count
         }
         return 0
     }
@@ -91,18 +88,16 @@ class AboutUsViewController: UITableViewController {
         else if (indexPath.section == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantInfoCell", for: indexPath) as! RestaurantInfoCell
             cell.selectionStyle = .none
-            if (self.business != nil) {
-                cell.storeNameLabel.text = self.business?.storeName
-                cell.addressLabel.text = self.business?.address
-            }
+                cell.storeNameLabel.text = business.storeName
+                cell.addressLabel.text = business.address
             return cell
         }
         else if (indexPath.section == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "OpenHoursCell", for: indexPath)
             cell.isUserInteractionEnabled = false
             cell.selectionStyle = .none
-            if (openHours != nil) {
-                cell.textLabel?.text = openHours?[indexPath.row]
+            if (openHours.count > 0) {
+                cell.textLabel?.text = openHours[indexPath.row]
                 cell.detailTextLabel?.text = stringFromWeekDay(indexPath.row)
             }
             return cell
@@ -110,12 +105,12 @@ class AboutUsViewController: UITableViewController {
         
         else if (indexPath.section == 3) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
-            cell.textLabel?.text = contacts?[indexPath.row]
+            cell.textLabel?.text = contacts[indexPath.row]
             return cell
         }
         else if (indexPath.section == 4) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SocialCell", for: indexPath)
-            cell.textLabel?.text = socialNetworks?[indexPath.row]
+            cell.textLabel?.text = socialNetworks[indexPath.row]
             return cell
         }
         return UITableViewCell()
@@ -124,27 +119,27 @@ class AboutUsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 3) {
             if (indexPath.row == 0) {
-                let phoneString = String(format:"telprompt://%@", (business?.phoneNumber)!)
+                let phoneString = String(format:"telprompt://%@", (business.phoneNumber)!)
                 UIApplication.shared.openURL(URL.init(string: phoneString)!)
             }
             else if (indexPath.row == 1) {
-                let emailString = String(format:"mailto://%@", (business?.email)!)
+                let emailString = String(format:"mailto://%@", (business.email)!)
                 UIApplication.shared.openURL(URL.init(string: emailString)!)
             }
         }
         else if (indexPath.section == 4) {
             var url: URL?
             if (indexPath.row == 0) {
-                url = URL.init(string: (business?.facebookPage)!)
+                url = URL.init(string: (business.facebookPage)!)
             }
             else if (indexPath.row == 1) {
-                url = URL.init(string: (business?.twitterPage)!)
+                url = URL.init(string: (business.twitterPage)!)
             }
             else if (indexPath.row == 2) {
-                url = URL.init(string: (business?.instagramPage)!)
+                url = URL.init(string: (business.instagramPage)!)
             }
             else if (indexPath.row == 3) {
-                url = URL.init(string: (business?.pinterestPage)!)
+                url = URL.init(string: (business.pinterestPage)!)
             }
             UIApplication.shared.openURL(url!)
         }

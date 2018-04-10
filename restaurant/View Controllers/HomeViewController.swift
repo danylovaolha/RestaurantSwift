@@ -3,26 +3,25 @@ import UIKit
 
 class HomeViewController: UITableViewController {
     
-    private let backendless = Backendless.sharedInstance()!
     private let FAVORITES = "★ Favorites"
     private let SHOPPING_CART = "🛒 Shopping Cart"
     private let ABOUT = "ℹ About us"
     private let LOGOUT = "← Logout"
     private let ARTICLES = "📰 Articles"
     
-    private var favoritesAndCart: [String]?
-    private var categories: [String]?
-    private var news: [String]?
-    private var other: [String]?
+    private var favoritesAndCart = [String]()
+    private var categories = [String]()
+    private var news = [String]()
+    private var other = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
 
-        backendless.data.of(Category.ofClass()).find({ categoryArray in
+        Backendless.sharedInstance().data.of(Category.ofClass()).find({ categoryArray in
             self.categories = [String]()
             for category in categoryArray! {
-                self.categories?.append(String(format:"• %@", (category as! Category).title!))
+                self.categories.append(String(format:"• %@", (category as! Category).title!))
             }
             self.tableView.reloadData()
         }, error: { fault in
@@ -37,21 +36,18 @@ class HomeViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
             favoritesAndCart = [FAVORITES, SHOPPING_CART]
-            return (favoritesAndCart?.count)!
+            return favoritesAndCart.count
         }
         else if (section == 1) {
-            if (categories != nil) {
-                return (categories?.count)!
-            }
-            return 0
+                return categories.count
         }
         else if (section == 2) {
             news = [ARTICLES]
-            return (news?.count)!
+            return news.count
         }
         else if (section == 3) {
             other = [ABOUT, LOGOUT]
-            return (other?.count)!
+            return other.count
         }
         return 0
     }
@@ -85,16 +81,16 @@ class HomeViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath)
         if (indexPath.section == 0) {
-            cell.textLabel?.text = favoritesAndCart?[indexPath.row]
+            cell.textLabel?.text = favoritesAndCart[indexPath.row]
         }
         else if (indexPath.section == 1) {
-            cell.textLabel?.text = categories?[indexPath.row]
+            cell.textLabel?.text = categories[indexPath.row]
         }
         else if (indexPath.section == 2) {
-            cell.textLabel?.text = news?[indexPath.row]
+            cell.textLabel?.text = news[indexPath.row]
         }
         else if (indexPath.section == 3) {
-            cell.textLabel?.text = other?[indexPath.row]
+            cell.textLabel?.text = other[indexPath.row]
         }
         return cell
     }
@@ -143,11 +139,11 @@ class HomeViewController: UITableViewController {
             itemsVC.navigationItem.title = "News"
         }
         else if (indexPath?.section == 3 && segue.identifier == "ShowAbout") {
-            backendless.data.of(Business.ofClass()).findFirst({ business in
-                self.backendless.data.of(OpenHoursInfo.ofClass()).find({ openHours in
+            Backendless.sharedInstance().data.of(Business.ofClass()).findFirst({ business in
+                Backendless.sharedInstance().data.of(OpenHoursInfo.ofClass()).find({ openHours in
                     let navController = segue.destination as! UINavigationController
                     let aboutUsVC = navController.topViewController as! AboutUsViewController
-                    aboutUsVC.business = business as? Business
+                    aboutUsVC.business = business as! Business
                     aboutUsVC.openHours = self.sortedOpenHours(openHours as! [OpenHoursInfo])
                     aboutUsVC.tableView.reloadData()
                 }, error: { fault in
