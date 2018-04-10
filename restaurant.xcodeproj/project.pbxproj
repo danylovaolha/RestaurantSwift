@@ -480,7 +480,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.backendless.blueprints.restaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "lib/backendless/include/Backendless-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pods/Backendless/SDK/ios/backendless/include/Backendless-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -499,7 +499,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.backendless.blueprints.restaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "lib/backendless/include/Backendless-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pods/Backendless/SDK/ios/backendless/include/Backendless-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
