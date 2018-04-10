@@ -11,7 +11,6 @@
 		0F22E1B41E8407D1004B722A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E1B21E8407D1004B722A /* Main.storyboard */; };
 		0F22E1B61E8407D1004B722A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E1B51E8407D1004B722A /* Assets.xcassets */; };
 		0F22E1B91E8407D1004B722A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E1B71E8407D1004B722A /* LaunchScreen.storyboard */; };
-		17F35B9E8DF3338523F5DCA8 /* Pods_restaurant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A77D6BE069F4E752840A94B /* Pods_restaurant.framework */; };
 		5A3BD7B620778E40000AEF0A /* DeliveryInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3BD7B420778E3F000AEF0A /* DeliveryInputField.swift */; };
 		5A3BD7B720778E40000AEF0A /* DeliveryMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3BD7B520778E3F000AEF0A /* DeliveryMethod.swift */; };
 		5A77B6A3206D3F0E00EDD775 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A77B698206D3F0E00EDD775 /* Picture.swift */; };
@@ -53,7 +52,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A77D6BE069F4E752840A94B /* Pods_restaurant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_restaurant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F22E1AB1E8407D1004B722A /* restaurant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = restaurant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F22E1AE1E8407D1004B722A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F22E1B31E8407D1004B722A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17F35B9E8DF3338523F5DCA8 /* Pods_restaurant.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +114,6 @@
 			children = (
 				0F22E1AD1E8407D1004B722A /* restaurant */,
 				0F22E1AC1E8407D1004B722A /* Products */,
-				27CBBC05CF6F9F69C0BCA04A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,14 +141,6 @@
 				0F22E1BA1E8407D1004B722A /* Info.plist */,
 			);
 			path = restaurant;
-			sourceTree = "<group>";
-		};
-		27CBBC05CF6F9F69C0BCA04A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0A77D6BE069F4E752840A94B /* Pods_restaurant.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		5A77B697206D3F0E00EDD775 /* Data */ = {
@@ -243,11 +231,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0F22E1BD1E8407D1004B722A /* Build configuration list for PBXNativeTarget "restaurant" */;
 			buildPhases = (
-				F66217E813A8142979101BD4 /* [CP] Check Pods Manifest.lock */,
 				0F22E1A71E8407D1004B722A /* Sources */,
 				0F22E1A81E8407D1004B722A /* Frameworks */,
 				0F22E1A91E8407D1004B722A /* Resources */,
-				1F23AD8562930123EA4EDC62 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -269,7 +255,6 @@
 				TargetAttributes = {
 					0F22E1AA1E8407D1004B722A = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 73FSJC7BUF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -304,47 +289,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1F23AD8562930123EA4EDC62 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-restaurant/Pods-restaurant-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
-				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-restaurant/Pods-restaurant-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F66217E813A8142979101BD4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-restaurant-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0F22E1A71E8407D1004B722A /* Sources */ = {
@@ -526,7 +470,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 73FSJC7BUF;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = restaurant/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -545,7 +489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 73FSJC7BUF;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = restaurant/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
