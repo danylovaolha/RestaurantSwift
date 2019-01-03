@@ -6,6 +6,6 @@ target 'restaurant' do
   use_frameworks!
 
   # Pods for restaurant
-pod 'Socket.IO-Client-Swift'
+pod 'Backendless'
 
 end
