@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         Backendless.sharedInstance().hostURL = SERVER_URL
         Backendless.sharedInstance().initApp(APPLICATION_ID, apiKey: API_KEY)
-        view.bringSubview(toFront: enterTheAppButton)
+        view.bringSubviewToFront(enterTheAppButton)
         enterTheAppButton.layer.cornerRadius = 20
         enterTheAppButton.layer.masksToBounds = true
     }

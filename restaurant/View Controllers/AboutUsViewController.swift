@@ -73,7 +73,7 @@ class AboutUsViewController: UITableViewController {
         if (indexPath.section == 0) {
             return 200;
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

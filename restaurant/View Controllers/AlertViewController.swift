@@ -42,7 +42,7 @@ class AlertViewController: UIViewController {
         alert.view.tintColor = ColorHelper.shared.getColorFromHex("#FF9300", 1)
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = "email"
-            textField.clearButtonMode = UITextFieldViewMode.whileEditing
+            textField.clearButtonMode = UITextField.ViewMode.whileEditing
         })
         let confirmAction = UIAlertAction.init(title: "Confirm", style: .default, handler: { sendConfirmation in
             if let textField = alert.textFields?.first {

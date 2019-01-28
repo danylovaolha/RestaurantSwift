@@ -59,7 +59,7 @@ class ItemDetailsViewController: UITableViewController {
         if (currentPriceIndexPath == nil) {
             currentPriceIndexPath = NSIndexPath.init(row: 0, section: 4)
         }
-        table.selectRow(at: currentPriceIndexPath! as IndexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
+        table.selectRow(at: currentPriceIndexPath! as IndexPath, animated: false, scrollPosition: UITableView.ScrollPosition.none)
         table.delegate?.tableView!(table, didSelectRowAt: currentPriceIndexPath! as IndexPath)
     }
     
@@ -131,7 +131,7 @@ class ItemDetailsViewController: UITableViewController {
         if (indexPath.section == 0) {
             return 200;
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
