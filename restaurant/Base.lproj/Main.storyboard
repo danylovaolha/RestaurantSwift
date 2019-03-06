@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome" translatesAutoresizingMaskIntoConstraints="NO" id="a2T-dF-TjY">
-                                <rect key="frame" x="0.0" y="-6" width="414" height="868"/>
+                                <rect key="frame" x="0.0" y="-6" width="414" height="918"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6PH-0T-v4G">
                                 <rect key="frame" x="50" y="776" width="314" height="36"/>
@@ -45,7 +45,7 @@
                             <constraint firstItem="6PH-0T-v4G" firstAttribute="left" secondItem="8bC-Xf-vdC" secondAttribute="left" constant="50" id="7uD-DU-oOQ"/>
                             <constraint firstAttribute="right" secondItem="6PH-0T-v4G" secondAttribute="right" constant="150" id="ACP-Je-vHx"/>
                             <constraint firstItem="6PH-0T-v4G" firstAttribute="left" secondItem="8bC-Xf-vdC" secondAttribute="left" constant="150" id="BZC-fY-gOK"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="a2T-dF-TjY" secondAttribute="bottom" id="EhI-xC-gPE"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="a2T-dF-TjY" secondAttribute="bottom" constant="-50" id="EhI-xC-gPE"/>
                             <constraint firstAttribute="right" secondItem="6PH-0T-v4G" secondAttribute="right" constant="50" id="Kv7-NO-AVJ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6PH-0T-v4G" secondAttribute="bottom" constant="50" id="NXp-b5-gKV"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6PH-0T-v4G" secondAttribute="bottom" constant="419" id="RVB-uM-Vas"/>
